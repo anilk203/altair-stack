@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+
+   service1:
+      container_name: service1
+      restart: always
+      build: ./services/service1
+      volumes:
+      - ./services/service1/:/app
+      ports:
+      - 9101:8001
+      command: gunicorn -w 1 -b :9101 --log-level=debug app:app
+      networks:
+         altair-network
+         
+   service2:
+      container_name: service2
+      restart: always
+      build: ./services/service2
+      volumes:
+      - ./services/service2/:/app
+      ports:
+      - 9102:8001
+      command: gunicorn -w 1 -b :9102 --log-level=debug app:app
+      networks:
+         altair-network
+
+   service3:
+      container_name: service3
+      restart: always
+      build: ./services/service3
+      volumes:
+      - ./services/service3/:/app
+      ports:
+      - 9103:8001
+      command: gunicorn -w 1 -b :9103 --log-level=debug app:app
+      networks:
+         altair-network 
+   nginx:
+      container_name: nginx
+      restart: always
+      build: ./nginx
+      volumes:
+      - ./nginx/web/:/srv/www
+      ports:
+      - 80:80
+      networks:
+         altair-network
+
+networks:
+   altair-network:
+      external: true
