@@ -12,7 +12,7 @@ services:
       - 9101:8001
       command: gunicorn -w 1 -b :9101 --log-level=debug app:app
       networks:
-         altair-network
+         altair-network:
          
    service2:
       container_name: service2
@@ -24,7 +24,7 @@ services:
       - 9102:8001
       command: gunicorn -w 1 -b :9102 --log-level=debug app:app
       networks:
-         altair-network
+         altair-network:
 
    service3:
       container_name: service3
@@ -36,7 +36,7 @@ services:
       - 9103:8001
       command: gunicorn -w 1 -b :9103 --log-level=debug app:app
       networks:
-         altair-network 
+         altair-network: 
    nginx:
       container_name: nginx
       restart: always
@@ -46,7 +46,7 @@ services:
       ports:
       - 80:80
       networks:
-         altair-network
+         altair-network:
 
 networks:
    altair-network:
